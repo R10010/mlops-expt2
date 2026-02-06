@@ -1,0 +1,27 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+# Load dataset
+data = pd.read_csv("data/salaries.csv")
+
+# Input & output
+X = data[["Rating", "Salaries Reported"]]
+y = data["Salary"]
+
+# Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Train
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Test
+predictions = model.predict(X_test)
+mse = mean_squared_error(y_test, predictions)
+
+print("Training done using uploaded dataset")
+print("MSE:", mse)
